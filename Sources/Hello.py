@@ -79,29 +79,30 @@ print(Le)
 
 #Peso de la estructura
 ##Vigas
-#for i in range(len(BeX.TIPO)):
-#   for j in range(len(B.TIPO)):
-#       if BeX.TIPO[i]=len(B.TIPO):
-#           
-
 Wvigx=0
 for i in range(len(BeX.TIPO)):
-    Wvigx=BeX.lb[i]*BeX.CANTIDAD[i]*BeX.nbe[i]+Wvigx
+  for j in range(len(B.SECCION)):
+      if BeX.TIPO[i]==B.SECCION[j]:
+          Wvigx=BeX.lb[i]*B.bb[j]*B.hb[j]*BeX.CANTIDAD[i]*λc+Wvigx           
 print(Wvigx)
 
-Wvigy=0
-for i in range(len(BeY.TIPO)):
-    Wvigy=BeY.lb[i]*BeY.CANTIDAD[i]*BeY.nbe[i]+Wvigy
-print(Wvigy)
+# Wvigy=0
+# for i in range(len(BeY.TIPO)):
+#     Wvigy=BeY.lb[i]*BeY.CANTIDAD[i]+Wvigy
+# print(Wvigy)
 
 
 ##Columnas
 Ac=[]
 for i in range(len(C.SECCION)):
     Ac.append([C.SECCION[i],C.ac_X[i]*C.bc_Y[i]])
+Ac=pd.DataFrame(Ac)
 print(Ac)
 
-
+#PPc=[]
+#for i in range(len(Ce.TIPO)):
+   # Ac.append([C.SECCION[i],C.ac_X[i]*C.bc_Y[i]])
+#print(PPc)
 
 
 
