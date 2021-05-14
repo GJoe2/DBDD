@@ -1,5 +1,5 @@
-print("hello")
-print("Somos el equipo maravilla buena onda")
+print("Jelou")
+print("Programa para DDBD v1.0")
 
 import numpy as np
 #Materiales
@@ -14,26 +14,27 @@ Es=2*10^6              #kgf/cm2        Módulo de elasticidad del acero
 
 #Secciones
 ##Columnas
-ac=[]                  #m         Ancho de columna (Longitud en el Eje X)
-ac.append(0.5)
-ac.append(0.5)
-bc=[]              #m         Largo de columna (Longitud en el Eje Y)
-bc.append(0.5)
+ac=0.5                  #m         Ancho de columna (Long. en X)
+bc=0.5                  #m         Largo de columna (Long. en Y)
+C1=[ac,bc]
+
 
 ##Vigas (Beam)
-#bb(1)=0.25             #m         Ancho de viga (Longitud en el Eje X o Y)
-#hb(1)=0.4              #m         Peralte de viga (Longitud en el Eje Z)
+bb=0.25             #m         Ancho de viga
+hb=0.4              #m         Peralte de viga
+V1=[bb,hb]
 
 ##Muros (Wall)
-#tw(1)=0.25             #m         Espesor de muro
-#Lw(1)=5                #m         Largo de muro
+tw=0.25             #m         Espesor de muro
+Lw=5                #m         Largo de muro
+W1=[tw,Lw]
 
 ##Losas
-#hl(1)=0.20             #m         Espesor de losa aligerada
-#qp(1)=300              #kgf/m2    Peso de losa aligerada /m2
+hl=0.20             #m         Espesor de losa aligerada
+ql=300              #kgf/m2    Peso de losa aligerada /m2
+L1=[hl,ql]
 
-
-print(ac[1])
+print(C1)
 
 
 
