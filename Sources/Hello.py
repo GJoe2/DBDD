@@ -2,7 +2,7 @@ print("Jelou")
 print("Programa para DDBD v1.0")
 
 import numpy as np
-import pandas
+import pandas as pd
 
 #Materiales
 fc=210                 #kgf/cm2        f'c del concreto
@@ -16,7 +16,7 @@ Es=2*10^6              #kgf/cm2        Módulo de elasticidad del acero
 print("SECCIONES:")
 ##Columnas
 dataC = "Sources\Secciones\Columnas.csv"
-C=pandas.read_csv(dataC,header=0)
+C=pd.read_csv(dataC,header=0)
 
 print(C)
 
@@ -75,8 +75,12 @@ Le=pandas.read_csv(dataLe,header=0)
 
 print(Le)
 
+print(Ce[0])
 
+#Peso de la estructura
+##Vigas
+Wvig=df.BeX
 
-
-
-
+##Columnas
+#PPc=
+print(Ce[0])
