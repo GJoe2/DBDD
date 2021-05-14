@@ -34,7 +34,18 @@ hl=0.20             #m         Espesor de losa aligerada
 ql=300              #kgf/m2    Peso de losa aligerada /m2
 L1=[hl,ql]
 
-print(C1)
+#Nodos
+
+
+#Elementos
+##Columnas
+##Vigas
+##Muros
+##Losas
+
+
+
+
 
 
 
