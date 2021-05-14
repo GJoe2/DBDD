@@ -45,7 +45,7 @@ print("ELEMENTOS:")
 dataCe = "Sources\Elementos\Columnas.csv"
 Ce=pd.read_csv(dataCe,header=0)
 
-print(Ce[0])
+print(Ce)
 
 ##Vigas
 dataBeX = "Sources\Elementos\Vigas X.csv"
@@ -79,9 +79,22 @@ print(Le)
 
 #Peso de la estructura
 ##Vigas
-Wvig=BeX.lb1[0]*BeX.CANTIDAD[0]*BeX.nbe[0]
+nWvig=len(range(BeX.lb))
+#la funcion no entrega un numero, con range lo convierte en numero para el loop     no sería al reves? len(range())
+#si xd, los loops de python son bastantes flexibles, pueden entrar numeros o listas :O
+#por qué BeX.lb1?
+#Bex=dataframe que definiste
+#lb1=columna de Bex
+#estan con headers? creo q no... no lo sé xD dice header=0
+#la columna es "lb (m)", no debe tener espacios los headers, un problema del pandas ok
+Wvig=0
+for i in nWvig-1
+    #le pongo -1 ya que el valor inicial de i es 1 y los dataframe de pandas empienzan con 0
+    Wvig=BeX.lb[i]*BeX.CANTIDAD[i]*BeX.nbe[i]+Wvig
+
+Wvigt=BeX.lb[0]*BeX.CANTIDAD[0]*BeX.nbe[0]
 print(Wvig)
 
 ##Columnas
 #PPc=
-print(Ce[0])
+nC=len(range(C.ac_X))
