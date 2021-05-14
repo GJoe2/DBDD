@@ -99,6 +99,7 @@ for i in range(len(C.SECCION)):
 Ac=pd.DataFrame(Ac)
 print(Ac)
 
+
 #PPc=[]
 #for i in range(len(Ce.TIPO)):
    # Ac.append([C.SECCION[i],C.ac_X[i]*C.bc_Y[i]])
