@@ -1,3 +1,3 @@
-Muro,TIPO,CANTIDAD,xi - CM (m),yi - CM (m)
+Muro,TIPO,CANTIDAD,xi_CM,yi_CM
 W1,M25x500,1,-10,-7.5
 W2,M25x500,1,10,7.5

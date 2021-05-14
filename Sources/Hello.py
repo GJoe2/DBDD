@@ -22,19 +22,19 @@ print(C)
 
 ##Vigas (Beam)
 dataB = "Sources\Secciones\Vigas.csv"
-B=pandas.read_csv(dataB,header=0)
+B=pd.read_csv(dataB,header=0)
 
 print(B)
 
 ##Muros (Wall)
 dataW = "Sources\Secciones\Muros.csv"
-W=pandas.read_csv(dataW,header=0)
+W=pd.read_csv(dataW,header=0)
 
 print(W)
 
 ##Losas
 dataL = "Sources\Secciones\Losas.csv"
-L=pandas.read_csv(dataL,header=0)
+L=pd.read_csv(dataL,header=0)
 
 print(L)
 
@@ -43,43 +43,44 @@ print(L)
 print("ELEMENTOS:")
 ##Columnas
 dataCe = "Sources\Elementos\Columnas.csv"
-Ce=pandas.read_csv(dataCe,header=0)
+Ce=pd.read_csv(dataCe,header=0)
 
-print(Ce)
+print(Ce[0])
 
 ##Vigas
 dataBeX = "Sources\Elementos\Vigas X.csv"
-BeX=pandas.read_csv(dataBeX,header=0)
+BeX=pd.read_csv(dataBeX,header=0)
 
 print(BeX)
 
 dataBeY = "Sources\Elementos\Vigas Y.csv"
-BeY=pandas.read_csv(dataBeY,header=0)
+BeY=pd.read_csv(dataBeY,header=0)
 
 print(BeY)
 
 ##Muros
 dataWeX = "Sources\Elementos\Muros X.csv"
-WeX=pandas.read_csv(dataWeX,header=0)
+WeX=pd.read_csv(dataWeX,header=0)
 
 print(WeX)
 
 dataWeY = "Sources\Elementos\Muros Y.csv"
-WeY=pandas.read_csv(dataWeY,header=0,)
+WeY=pd.read_csv(dataWeY,header=0,)
 
 print(WeY)
 
 ##Losas
 dataLe = "Sources\Elementos\Losas.csv"
-Le=pandas.read_csv(dataLe,header=0)
+Le=pd.read_csv(dataLe,header=0)
 
 print(Le)
 
-print(Ce[0])
+
 
 #Peso de la estructura
 ##Vigas
-Wvig=df.BeX
+Wvig=BeX.lb1[0]*BeX.CANTIDAD[0]*BeX.nbe[0]
+print(Wvig)
 
 ##Columnas
 #PPc=
