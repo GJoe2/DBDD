@@ -15,86 +15,87 @@ Es=2*10^6              #kgf/cm2        Módulo de elasticidad del acero
 #Secciones
 print("SECCIONES:")
 ##Columnas
-dataC = "Sources\Secciones\Columnas.csv"
-C=pd.read_csv(dataC,header=0)
+    dataC = "Sources\Secciones\Columnas.csv"
+    C=pd.read_csv(dataC,header=0)
 
-print(C)
+    print(C)
 
 ##Vigas (Beam)
-dataB = "Sources\Secciones\Vigas.csv"
-B=pd.read_csv(dataB,header=0)
+    dataB = "Sources\Secciones\Vigas.csv"
+    B=pd.read_csv(dataB,header=0)
 
-print(B)
+    print(B)
 
 ##Muros (Wall)
-dataW = "Sources\Secciones\Muros.csv"
-W=pd.read_csv(dataW,header=0)
+    dataW = "Sources\Secciones\Muros.csv"
+    W=pd.read_csv(dataW,header=0)
 
-print(W)
+    print(W)
 
 ##Losas
-dataL = "Sources\Secciones\Losas.csv"
-L=pd.read_csv(dataL,header=0)
+    dataL = "Sources\Secciones\Losas.csv"
+    L=pd.read_csv(dataL,header=0)
 
-print(L)
+    print(L)
 
 
 #Elementos
 print("ELEMENTOS:")
 ##Columnas
-dataCe = "Sources\Elementos\Columnas.csv"
-Ce=pd.read_csv(dataCe,header=0)
+    dataCe = "Sources\Elementos\Columnas.csv"
+    Ce=pd.read_csv(dataCe,header=0)
 
-print(Ce)
+    print(Ce)
 
 ##Vigas
-dataBeX = "Sources\Elementos\Vigas X.csv"
-BeX=pd.read_csv(dataBeX,header=0)
+    dataBeX = "Sources\Elementos\Vigas X.csv"
+    BeX=pd.read_csv(dataBeX,header=0)
 
-print(BeX)
+    print(BeX)
 
-dataBeY = "Sources\Elementos\Vigas Y.csv"
-BeY=pd.read_csv(dataBeY,header=0)
+    dataBeY = "Sources\Elementos\Vigas Y.csv"
+    BeY=pd.read_csv(dataBeY,header=0)
 
-print(BeY)
+    print(BeY)
 
 ##Muros
-dataWeX = "Sources\Elementos\Muros X.csv"
-WeX=pd.read_csv(dataWeX,header=0)
+    dataWeX = "Sources\Elementos\Muros X.csv"
+    WeX=pd.read_csv(dataWeX,header=0)
 
-print(WeX)
+    print(WeX)
 
-dataWeY = "Sources\Elementos\Muros Y.csv"
-WeY=pd.read_csv(dataWeY,header=0,)
+    dataWeY = "Sources\Elementos\Muros Y.csv"
+    WeY=pd.read_csv(dataWeY,header=0,)
 
-print(WeY)
+    print(WeY)
 
 ##Losas
-dataLe = "Sources\Elementos\Losas.csv"
-Le=pd.read_csv(dataLe,header=0)
+    dataLe = "Sources\Elementos\Losas.csv"
+    Le=pd.read_csv(dataLe,header=0)
 
-print(Le)
+    print(Le)
 
 
 
 #Peso de la estructura
 ##Vigas
-nWvig=len(range(BeX.lb))
-#la funcion no entrega un numero, con range lo convierte en numero para el loop     no sería al reves? len(range())
-#si xd, los loops de python son bastantes flexibles, pueden entrar numeros o listas :O
-#por qué BeX.lb1?
-#Bex=dataframe que definiste
-#lb1=columna de Bex
-#estan con headers? creo q no... no lo sé xD dice header=0
-#la columna es "lb (m)", no debe tener espacios los headers, un problema del pandas ok
+nWvig=len(range(BeX.TIPO))
+
 Wvig=0
-for i in nWvig-1
+for i in nWvig:
     #le pongo -1 ya que el valor inicial de i es 1 y los dataframe de pandas empienzan con 0
     Wvig=BeX.lb[i]*BeX.CANTIDAD[i]*BeX.nbe[i]+Wvig
 
 Wvigt=BeX.lb[0]*BeX.CANTIDAD[0]*BeX.nbe[0]
 print(Wvig)
+print(Wvigt)
+#falta hacer la prueba... ya, no se pone un end for? o next? no, solo basta con la sangria
+#No sale XD
+#no veo el terminal, ya lo vi xd, estaba en otra pestaña
+#jajaj, no quiere leer la linea 18 :o
+
+
 
 ##Columnas
-#PPc=
-nC=len(range(C.ac_X))
+#PPc=  
+#nC=len(range(C.SECCION))
