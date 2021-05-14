@@ -15,87 +15,98 @@ Es=2*10^6              #kgf/cm2        Módulo de elasticidad del acero
 #Secciones
 print("SECCIONES:")
 ##Columnas
-    dataC = "Sources\Secciones\Columnas.csv"
-    C=pd.read_csv(dataC,header=0)
+dataC = "Sources\Secciones\Columnas.csv"
+C=pd.read_csv(dataC)
 
-    print(C)
+print(C)
 
 ##Vigas (Beam)
-    dataB = "Sources\Secciones\Vigas.csv"
-    B=pd.read_csv(dataB,header=0)
+dataB = "Sources\Secciones\Vigas.csv"
+B=pd.read_csv(dataB)
 
-    print(B)
+print(B)
 
 ##Muros (Wall)
-    dataW = "Sources\Secciones\Muros.csv"
-    W=pd.read_csv(dataW,header=0)
+dataW = "Sources\Secciones\Muros.csv"
+W=pd.read_csv(dataW)
 
-    print(W)
+print(W)
 
 ##Losas
-    dataL = "Sources\Secciones\Losas.csv"
-    L=pd.read_csv(dataL,header=0)
+dataL = "Sources\Secciones\Losas.csv"
+L=pd.read_csv(dataL)
 
-    print(L)
+print(L)
 
 
 #Elementos
 print("ELEMENTOS:")
 ##Columnas
-    dataCe = "Sources\Elementos\Columnas.csv"
-    Ce=pd.read_csv(dataCe,header=0)
+dataCe = "Sources\Elementos\Columnas.csv"
+Ce=pd.read_csv(dataCe)
 
-    print(Ce)
+print(Ce)
 
 ##Vigas
-    dataBeX = "Sources\Elementos\Vigas X.csv"
-    BeX=pd.read_csv(dataBeX,header=0)
+dataBeX = "Sources\Elementos\Vigas X.csv"
+BeX=pd.read_csv(dataBeX)
 
-    print(BeX)
+print(BeX)
 
-    dataBeY = "Sources\Elementos\Vigas Y.csv"
-    BeY=pd.read_csv(dataBeY,header=0)
+dataBeY = "Sources\Elementos\Vigas Y.csv"
+BeY=pd.read_csv(dataBeY)
 
-    print(BeY)
+print(BeY)
 
 ##Muros
-    dataWeX = "Sources\Elementos\Muros X.csv"
-    WeX=pd.read_csv(dataWeX,header=0)
+dataWeX = "Sources\Elementos\Muros X.csv"
+WeX=pd.read_csv(dataWeX)
 
-    print(WeX)
+print(WeX)
 
-    dataWeY = "Sources\Elementos\Muros Y.csv"
-    WeY=pd.read_csv(dataWeY,header=0,)
+dataWeY = "Sources\Elementos\Muros Y.csv"
+WeY=pd.read_csv(dataWeY,)
 
-    print(WeY)
+print(WeY)
 
 ##Losas
-    dataLe = "Sources\Elementos\Losas.csv"
-    Le=pd.read_csv(dataLe,header=0)
+dataLe = "Sources\Elementos\Losas.csv"
+Le=pd.read_csv(dataLe)
 
-    print(Le)
+print(Le)
 
 
 
 #Peso de la estructura
 ##Vigas
-nWvig=len(range(BeX.TIPO))
+#for i in range(len(BeX.TIPO)):
+#   for j in range(len(B.TIPO)):
+#       if BeX.TIPO[i]=len(B.TIPO):
+#           
 
-Wvig=0
-for i in nWvig:
-    #le pongo -1 ya que el valor inicial de i es 1 y los dataframe de pandas empienzan con 0
-    Wvig=BeX.lb[i]*BeX.CANTIDAD[i]*BeX.nbe[i]+Wvig
+Wvigx=0
+for i in range(len(BeX.TIPO)):
+    Wvigx=BeX.lb[i]*BeX.CANTIDAD[i]*BeX.nbe[i]+Wvigx
+print(Wvigx)
 
-Wvigt=BeX.lb[0]*BeX.CANTIDAD[0]*BeX.nbe[0]
-print(Wvig)
-print(Wvigt)
-#falta hacer la prueba... ya, no se pone un end for? o next? no, solo basta con la sangria
-#No sale XD
-#no veo el terminal, ya lo vi xd, estaba en otra pestaña
-#jajaj, no quiere leer la linea 18 :o
-
+Wvigy=0
+for i in range(len(BeY.TIPO)):
+    Wvigy=BeY.lb[i]*BeY.CANTIDAD[i]*BeY.nbe[i]+Wvigy
+print(Wvigy)
 
 
 ##Columnas
-#PPc=  
-#nC=len(range(C.SECCION))
+Ac=[]
+for i in range(len(C.SECCION)):
+    Ac.append([C.SECCION[i],C.ac_X[i]*C.bc_Y[i]])
+print(Ac)
+
+
+
+
+
+##Muros
+#Wmurx=0
+#for i in range(len(WeX.TIPO)):
+#    Wmurx=WeX.lb[i]*WeX.CANTIDAD[i]*WeX.nbe[i]+Wvigx
+#print(Wvigx)
