@@ -2,6 +2,7 @@ print("Jelou")
 print("Programa para DDBD v1.0")
 
 import numpy as np
+from numpy.ma import array
 import pandas as pd
 
 #Materiales
@@ -97,7 +98,21 @@ Ac=[]
 for i in range(len(C.SECCION)):
     Ac.append([C.SECCION[i],C.ac_X[i]*C.bc_Y[i]])
 Ac=pd.DataFrame(Ac)
-print(Ac)
+Ac.columns=["SECCION","Ac"]
+
+N=Ce.NIVEL.max() #Número de pisos
+Pc=[]
+for i in range(1,N+1) :
+    for j in range(len(Ce.NIVEL)):
+        PPc=0
+        if Ce.NIVEL[j]==i:
+            for k in range(len(Ac.SECCION)):
+                if Ce.TIPO[j]==Ac.SECCION[k]:
+                    PPc=PPc+Ac.Ac[k]*Ce.Hc[j]*Ce.CANTIDAD[j]*λc
+            Pc.append([i,PPc,Ce.Hc[j]])
+PPc=pd.DataFrame(Pc)
+PPc.columns=["NIVEL","PPc","Hc"]
+print(PPc)
 
 
 #PPc=[]
