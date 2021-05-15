@@ -217,3 +217,7 @@ Mi=(PPi+SCMi+0.25*CVi)/9.81
 M=pd.DataFrame([NIVEL,Mi,Hi]).T
 M.columns=["NIVEL","M","Hi"]
 print(M)
+
+#CÁLCULO DE ALTURA DE INFLEXIÓN
+β=0.4         #Vframes para Vb=1
+
