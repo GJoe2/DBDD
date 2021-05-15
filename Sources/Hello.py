@@ -4,13 +4,14 @@ print("Programa para DDBD v1.0")
 import numpy as np
 from numpy.ma import array
 import pandas as pd
+from pandas.core.frame import DataFrame
 
 #Materiales
-fc=210                 #kgf/cm2        f'c del concreto
-fy=4200                #kgf/cm2        Fy del acero
-fu=6330                #kgf/cm2        Fu del acero
-Ec=15000*np.sqrt(fc)   #kgf/cm2        Módulo de elasticidad del concreto
-Es=2*10^6              #kgf/cm2        Módulo de elasticidad del acero
+fc=210                 #kgf/SCM2        f'c del concreto
+fy=4200                #kgf/SCM2        Fy del acero
+fu=6330                #kgf/SCM2        Fu del acero
+Ec=15000*np.sqrt(fc)   #kgf/SCM2        Módulo de elasticidad del concreto
+Es=2*10^6              #kgf/SCM2        Módulo de elasticidad del acero
 λc =2.4                #tnf/m3         Peso especifico del concreto
 
 #Secciones
@@ -21,8 +22,8 @@ C=pd.read_csv(dataC)
 #print(C)
 
 ##Vigas (Beam)
-dataB = "Sources\Secciones\Vigas.csv"
-B=pd.read_csv(dataB)
+daSCM = "Sources\Secciones\Vigas.csv"
+B=pd.read_csv(daSCM)
 #print(B)
 
 ##Muros (Wall)
@@ -44,12 +45,12 @@ Ce=pd.read_csv(dataCe)
 #print(Ce)
 
 ##Vigas
-dataBeX = "Sources\Elementos\Vigas X.csv"
-BeX=pd.read_csv(dataBeX)
+daSCMeX = "Sources\Elementos\Vigas X.csv"
+BeX=pd.read_csv(daSCMeX)
 #print(BeX)
 
-dataBeY = "Sources\Elementos\Vigas Y.csv"
-BeY=pd.read_csv(dataBeY)
+daSCMeY = "Sources\Elementos\Vigas Y.csv"
+BeY=pd.read_csv(daSCMeY)
 #print(BeY)
 
 ##Muros
@@ -155,20 +156,88 @@ for i in range(0,N):
         PPi.append([PPc.NIVEL[i],(PPc.PPc[i]/2+PPc.PPc[i+1]/2)+PPb+PPlosa+PPw*(PPc.Hc[i]/2+PPc.Hc[i+1]/2),Hi])
 PP=pd.DataFrame(PPi)
 PP.columns=["NIVEL","PP","Hi"]
-print(PP) #Peso Propio de la Estructura
+#print(PP) #Peso Propio de la Estructura
 
 
-##CARGAS EXTERNAS
+##CARGAS VIVA Y SOBRECARGA MUERTA
 
-# dataCS = "Sources\Cargas\Cargas Shell.csv"
-# CS=pd.read_csv(dataCS)
-# PPcv=0
-# CSi=[]
-# for i in range(len(CS.TIPO)):
-#   for j in range(len(Le.TIPO)):
-#       if CS.TIPO[i]==Le.TIPO[j]:
-#            PPlosa=Le.L_X[i]*Le.L_Y[i]*Le.CANTIDAD[i]*L.ql[j]+PPlosa
-#            CSi.append(CS.NIVEL[i],CS.SC[i]*Le.L_X[j]*Le.L_Y[j]*Le.Cantida)
-#CSt=pd.DataFrame(CSI)
-#CSt.columns=["Nivel","SC","TABIQUERIA"]
-#print(CSt) #Cargas Externas
+dataCS1 = "Sources\Cargas\Cargas Viva.csv"
+dataCS2= "Sources\Cargas\Carga Muerta.csv"
+CS1=pd.read_csv(dataCS1)
+CS2=pd.read_csv(dataCS2)
+cvtl=0
+scmtl=0
+
+CV=[[0,0]]
+for i in range(len(CS1.TIPO)):
+    for j in range(len(Le.TIPO)):
+      if CS1.TIPO[i]==Le.TIPO[j]:
+           cvtl=CS1.CV[i]*Le.L_X[j]*Le.L_Y[j]*Le.CANTIDAD[j]+cvtl
+           CV.append([CS1.NIVEL[i],CS1.CV[i]*Le.L_X[j]*Le.L_Y[j]*Le.CANTIDAD[j]])
+CVt=pd.DataFrame(CV)
+CVt.columns=["Nivel","CV"]
+
+SCM=[[0,0]]
+for i in range(len(CS2.TIPO)):
+  for j in range(len(Le.TIPO)):
+      if CS2.TIPO[i]==Le.TIPO[j]:
+           scmtl=CS2.SCM[i]*Le.L_X[j]*Le.L_Y[j]*Le.CANTIDAD[j]+scmtl
+           SCM.append([CS2.NIVEL[i],CS2.SCM[i]*Le.L_X[j]*Le.L_Y[j]*Le.CANTIDAD[j]])
+SCMt=pd.DataFrame(SCM) 
+SCMt.columns=["Nivel","SCM"]
+
+#print(CVt)
+#print(SCMt)
+
+##PESO SISMICO
+
+# PPr=PP[PP]
+# df=pd.merge(PPr,CVt,SCMt)
+# df.sum(axis=0)
+# 
+# print(df)
+# print(CVt.CV())
+# PS=PP.PP+CVt.CV+SCMt.SCM
+
+#PESO TOTAL
+print("Peso Total de la Estructura: PT=CM+CV")
+N=len(PP.index) #Número de pisos+1
+PTi=[]
+for i in range(0,N):
+    Pi=PP.PP[i]+SCMt.SCM[i]+CVt.CV[i]
+    PTi.append([PP.NIVEL[i],Pi,PP.Hi[i]])
+PT=pd.DataFrame(PTi)
+PT.columns=["NIVEL","PT","Hi"]
+print(PT) #Peso Total de la Estructura PT=CM+CV
+
+#PESO SISMICO
+print("Peso Sísmico de la Estructura: PS=CM+25%CV")
+N=len(PT.index) #Número de pisos+1
+PSi=[]
+for i in range(0,N):
+    Pi=PP.PP[i]+SCMt.SCM[i]+0.25*CVt.CV[i]
+    PSi.append([PT.NIVEL[i],Pi,PT.Hi[i]])
+PS=pd.DataFrame(PSi)
+PS.columns=["NIVEL","PS","Hi"]
+print(PS) #Peso Sísmico de la Estructura PS=CM+25%CV
+
+#MASA SISMICA
+print("Masa de la Estructura:")
+N=len(PS.index) #Número de pisos+1
+Mi=[]
+for i in range(0,N):
+    mi=PS.PS[i]/9.81
+    Mi.append([PS.NIVEL[i],mi,PS.Hi[i]])
+M=pd.DataFrame(Mi)
+M.columns=["NIVEL","M","Hi"]
+print(M) #Masa de la Estructura
+
+NIVEL=PP.iloc[:,0].array
+PPi=PP.iloc[:,1]
+SCMi=SCMt.iloc[:,1]
+CVi=CVt.iloc[:,1]
+PTi=PPi+SCMi+CVi
+Hi=PP.iloc[:,2]
+PT=pd.DataFrame([NIVEL,PTi,Hi]).T
+PT.columns=["NIVEL","PT","Hi"]
+print(PT)
