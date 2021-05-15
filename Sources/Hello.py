@@ -189,55 +189,31 @@ SCMt.columns=["Nivel","SCM"]
 #print(CVt)
 #print(SCMt)
 
-##PESO SISMICO
-
-# PPr=PP[PP]
-# df=pd.merge(PPr,CVt,SCMt)
-# df.sum(axis=0)
-# 
-# print(df)
-# print(CVt.CV())
-# PS=PP.PP+CVt.CV+SCMt.SCM
 
 #PESO TOTAL
 print("Peso Total de la Estructura: PT=CM+CV")
-N=len(PP.index) #Número de pisos+1
-PTi=[]
-for i in range(0,N):
-    Pi=PP.PP[i]+SCMt.SCM[i]+CVt.CV[i]
-    PTi.append([PP.NIVEL[i],Pi,PP.Hi[i]])
-PT=pd.DataFrame(PTi)
-PT.columns=["NIVEL","PT","Hi"]
-print(PT) #Peso Total de la Estructura PT=CM+CV
-
-#PESO SISMICO
-print("Peso Sísmico de la Estructura: PS=CM+25%CV")
-N=len(PT.index) #Número de pisos+1
-PSi=[]
-for i in range(0,N):
-    Pi=PP.PP[i]+SCMt.SCM[i]+0.25*CVt.CV[i]
-    PSi.append([PT.NIVEL[i],Pi,PT.Hi[i]])
-PS=pd.DataFrame(PSi)
-PS.columns=["NIVEL","PS","Hi"]
-print(PS) #Peso Sísmico de la Estructura PS=CM+25%CV
-
-#MASA SISMICA
-print("Masa de la Estructura:")
-N=len(PS.index) #Número de pisos+1
-Mi=[]
-for i in range(0,N):
-    mi=PS.PS[i]/9.81
-    Mi.append([PS.NIVEL[i],mi,PS.Hi[i]])
-M=pd.DataFrame(Mi)
-M.columns=["NIVEL","M","Hi"]
-print(M) #Masa de la Estructura
-
-NIVEL=PP.iloc[:,0].array
-PPi=PP.iloc[:,1]
-SCMi=SCMt.iloc[:,1]
-CVi=CVt.iloc[:,1]
+NIVEL=map(str,PP.NIVEL)
+PPi=PP.PP
+SCMi=SCMt.SCM
+CVi=CVt.CV
 PTi=PPi+SCMi+CVi
-Hi=PP.iloc[:,2]
+Hi=PP.Hi
 PT=pd.DataFrame([NIVEL,PTi,Hi]).T
 PT.columns=["NIVEL","PT","Hi"]
 print(PT)
+
+#PESO SISMICO
+print("Peso Sísmico de la Estructura: PS=CM+25%CV")
+NIVEL=map(str,PP.NIVEL)
+PSi=PPi+SCMi+0.25*CVi
+PS=pd.DataFrame([NIVEL,PSi,Hi]).T
+PS.columns=["NIVEL","PS","Hi"]
+print(PS)
+
+#MASA SISMICA
+print("Masa de la Estructura:")
+NIVEL=map(str,PP.NIVEL)
+Mi=(PPi+SCMi+0.25*CVi)/9.81
+M=pd.DataFrame([NIVEL,Mi,Hi]).T
+M.columns=["NIVEL","M","Hi"]
+print(M)
